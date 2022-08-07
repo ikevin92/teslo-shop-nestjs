@@ -5,7 +5,7 @@ import { validate as isUUID } from 'uuid';
 import { PaginationDto } from '../common/dtos/pagination.dto';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { ProductImage, Product } from './entities';
+import { Product, ProductImage } from './entities';
 
 @Injectable()
 export class ProductsService {
@@ -144,5 +144,15 @@ export class ProductsService {
     }
     this.logger.error(error);
     throw new InternalServerErrorException('Unexpected error -  Check Server logs');
+  }
+
+  async deleteAllProducts() {
+    const query = this.productRepository.createQueryBuilder('product');
+
+    try {
+      return await query.delete().where({}).execute();
+    } catch (error) {
+      this.handleDBExceptions(error);
+    }
   }
 }
