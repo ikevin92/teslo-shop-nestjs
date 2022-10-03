@@ -3,7 +3,6 @@ import { createParamDecorator, ExecutionContext, InternalServerErrorException } 
 
 export const GetUser = createParamDecorator(
   (data: string, ctx: ExecutionContext) => {
-    console.log(`🚀 ~ file: get-user.decorator.ts ~ line 6 ~ data`, data);
     const request = ctx.switchToHttp().getRequest();
     const { user } = request;
 
